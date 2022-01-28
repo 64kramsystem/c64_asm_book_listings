@@ -6,6 +6,7 @@ Many (if not all) of the books from the past don't have a digital edition, so, w
 
 The listings are in the format `$book_name/$chapter.$page.$description.asm`.
 
-## Current books
+## Current books/listings
 
 - Machine Code Games Routines for the Commodore 64 (WIP)
+  - 06.047: Spiral screen fill
