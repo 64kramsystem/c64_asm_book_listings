@@ -10,6 +10,7 @@ The listings are in the format `$book_name/$chapter.$page.$description.asm`.
 
 - Machine Code Games Routines for the Commodore 64 (WIP)
   - 06.047: Spiral screen fill
+    - includes 09.071: Rectangle fill
   - 09.071: Small memory fill (with fix, and extended/optimized versions)
   - 09.071: Block fill
 
