@@ -33,6 +33,8 @@ main:
 
 // Routine: Small memory fill //////////////////////////////////////////////////
 
+// Note that this routine does not support filling with a zero count (see below).
+//
 small_mem_fill:
 
 !loop:
@@ -40,4 +42,18 @@ small_mem_fill:
           dex
           bne !loop-
 
+          rts
+
+// This version of the routine supports a zero count:
+
+small_mem_fill_supports_zero:
+          ldx #1
+          beq exit              // In x86, typically this would be a jump; here, we take advantage of
+                                // the fact that ldx affects the zero flag, and fall through if X is 0!
+!loop:
+          sta START_ADDR - 1, x
+          dex
+          bne !loop-
+
+exit:
           rts
