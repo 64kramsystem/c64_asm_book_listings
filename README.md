@@ -13,6 +13,7 @@ The listings are in the format `$book_name/$chapter.$page.$description.asm`.
     - includes 09.071: Rectangle fill
   - 09.071: Small memory fill (with fix, and extended/optimized versions)
   - 09.071: Block fill
+  - 09.074: Memory copy (with simple optimizations)
 
 ## Errata
 
