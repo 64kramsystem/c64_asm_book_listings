@@ -10,3 +10,8 @@ The listings are in the format `$book_name/$chapter.$page.$description.asm`.
 
 - Machine Code Games Routines for the Commodore 64 (WIP)
   - 06.047: Spiral screen fill
+  - 09.071: Small memory fill (with fix, and extended version)
+
+## Errata
+
+The listing presented have been fixed, where I've found bugs. I've published the errata, with explanations, on my [professional blog](https://saveriomiroddi.github.io/tag/retrocomputing/).

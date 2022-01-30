@@ -41,7 +41,8 @@ height:         .byte 0
 
 spiral_fill:
 
-ll0:   lda #<START_CORNER           // Set the start data
+fill_screen:
+       lda #<START_CORNER           // Set the start data
        sta rect_corner_lo
        lda #>START_CORNER
        sta rect_corner_hi
@@ -51,7 +52,8 @@ ll0:   lda #<START_CORNER           // Set the start data
        lda #START_HEIGHT
        sta height
 
-ll1:   lda rect_corner_lo           // Set/invoke the fill routine
+fill_box:
+       lda rect_corner_lo           // Set/invoke the fill routine
        sta rect_fill_corner_lo
        lda rect_corner_hi
        sta rect_fill_corner_hi
@@ -75,26 +77,28 @@ ll1:   lda rect_corner_lo           // Set/invoke the fill routine
 
        lda height                   // Reached a size greater than the screen?
        cmp #27
-       bne ll1                      // ... not yet; keep drawing!
+       bne fill_box                 // ... not yet; keep drawing!
 
        inc rect_fill_code           // Personal addition: change the char and repeat, instead of exiting
        clc
-       bcc ll0
+       bcc fill_screen
        // rts
 
-// Helper: Fill rectangle //////////////////////////////////////////////////////
+// Routine: Rectangle fill /////////////////////////////////////////////////////
 
 rect_fill:
 
-rf1:   ldy #0                       // Preset: Y = column
+fill_line:
+       ldy #0                       // Preset: Y = column
        lda rect_fill_code           // ... A = color
-rf2:   sta (rect_fill_corner_lo), y // Fill the line, for width_lo> chars
+fill_column:
+       sta (rect_fill_corner_lo), y // Fill the line, for width_lo> chars
        iny
        cpy rect_fill_width
-       bne rf2
+       bne fill_column
 
        dec rect_fill_height         // Exit if filled height_lo> lines
-       beq rf3
+       beq exit
 
        lda rect_fill_corner_lo      // Add one line
        clc
@@ -105,6 +109,6 @@ rf2:   sta (rect_fill_corner_lo), y // Fill the line, for width_lo> chars
        sta rect_fill_corner_hi
 
        clc                          // Return to main cycle
-       bcc rf1
+       bcc fill_line
 
-rf3:   rts
+exit:   rts
