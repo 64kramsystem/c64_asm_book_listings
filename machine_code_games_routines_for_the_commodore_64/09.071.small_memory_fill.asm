@@ -8,7 +8,7 @@ BasicUpstart2(main)
 .const START_ADDR = SCREEN_LOCATION
 .const FILL_COUNT = SCREEN_WIDTH * 6
 
-// small_mem_fill variables ////////////////////////////////////////////////////
+// Routine params //////////////////////////////////////////////////////////////
 
 * = ($100 - 1) virtual
 
@@ -31,7 +31,7 @@ main:
           clc
           bcc !loop-
 
-// Routine: Small memory fill //////////////////////////////////////////////////
+// Routine /////////////////////////////////////////////////////////////////////
 
 // Note that this routine does not support filling with a zero count (see below).
 //
