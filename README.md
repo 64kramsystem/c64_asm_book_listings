@@ -8,13 +8,14 @@ The listings are in the format `$book_name/$chapter.$page.$description.asm`.
 
 ## Current books/listings
 
-- Machine Code Games Routines for the Commodore 64 (WIP)
-  - 06.047: Spiral screen fill
-    - includes 09.071: Rectangle fill
-  - 09.071: Small memory fill (with fix, and extended version)
-  - 09.071: Block fill
-  - 09.074: Memory copy (with simple optimizations)
-
-## Errata
-
 The listing presented have been fixed, where I've found bugs. I've published the errata, with explanations, on my [professional blog](https://saveriomiroddi.github.io/tag/retrocomputing/).
+
+### Machine Code Games Routines for the Commodore 64 (WIP)
+
+- 06.047: Spiral screen fill
+  - includes 09.071: Rectangle fill
+- 09.071: Small memory fill (with fix, and extended version)
+- 09.071: Block fill
+- 09.074: Memory copy (with simple optimizations)
+
+This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
