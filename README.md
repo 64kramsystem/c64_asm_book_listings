@@ -17,5 +17,8 @@ The listing presented have been fixed, where I've found bugs. I've published the
 - 09.071: Small memory fill (with fix, and extended version)
 - 09.071: Block fill
 - 09.074: Memory copy (with simple optimizations)
+- 09.076: Delay (3 versions)
+- 09.080: Fundamental Bomb Update (with fix)
+- 09.081: Hail Of Barbs (with BASIC fix, but untested ASM)
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
