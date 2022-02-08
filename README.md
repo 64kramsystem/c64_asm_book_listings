@@ -14,7 +14,7 @@ The listing presented have been fixed, where I've found bugs. I've published the
 
 - 06.047: Spiral screen fill
   - includes 09.071: Rectangle fill
-- 09.071: Small memory fill (with fix, and extended version)
+- 09.070: Small memory fill (with fix, and extended version)
 - 09.071: Block fill
 - 09.074: Memory copy (with simple optimizations)
 - 09.076: Delay (3 versions)
@@ -24,5 +24,8 @@ The listing presented have been fixed, where I've found bugs. I've published the
 - 09.086: Scroll Into Lower Memory
 - 09.087: Line Blank
 - 09.090: Joystick Handling
+- 09.092: Inverting (characters)
+- 09.094: Attribute Flasher (with fix)
+- 09.094: Alternative Sprite System
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
