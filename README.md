@@ -14,7 +14,7 @@ The listing presented have been fixed, where I've found bugs. I've published the
 
 - 06.047: Spiral screen fill
   - includes 09.071: Rectangle fill
-- 09.071: Small memory fill (with fix, and extended version)
+- 09.070: Small memory fill (with fix, and extended version)
 - 09.071: Block fill
 - 09.074: Memory copy (with simple optimizations)
 - 09.076: Delay (3 versions)
