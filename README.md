@@ -25,5 +25,6 @@ The listing presented have been fixed, where I've found bugs. I've published the
 - 09.087: Line Blank
 - 09.090: Joystick Handling
 - 09.092: Inverting (characters)
+- 09.094: Attribute Flasher (with fix)
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
