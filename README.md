@@ -29,5 +29,6 @@ The listing presented have been fixed, where I've found bugs. I've published the
 - 09.094: Alternative Sprite System
 - 10.102: Sprite vectoring (with full ASM port of the BASIC program below)
   - 10.103: BASIC program including the above
+- 10.109: Interrupt-driven tune player (commented and with tune, but unverified)
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
