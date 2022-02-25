@@ -32,3 +32,21 @@ The listing presented have been fixed, where I've found bugs. I've published the
 - 10.109: Interrupt-driven Tune Player (commented and with tune, but unverified)
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
+
+The book aim for simplicity rather than optimization, so optimizations have been applied only where they don't affect simplicity (or even improve it).
+
+Generally, the loop structure:
+
+- `LDr #0`
+- ...
+- `INr`
+- `CPr #SIZE`
+- `BNE loop`
+
+can be optimized to:
+
+- `LDr #(SIZE - 1)`
+- `DEr`
+- `BPL loop`
+
+Arguably, this is equally simple, although SIZE must not be greater than 128, otherwise the loop will exit after the first cycle.
