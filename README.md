@@ -35,6 +35,7 @@ The listing presented have been fixed, where I've found bugs. I've published the
 - 10.120: Array Routines 1: Plot Characters
 - 10.120: Array Routines 2: Move Characters
 - 10.121: Array Routines 3: Search Entry
+- 10.122: Array Routines 4: Delete Entry
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
 
