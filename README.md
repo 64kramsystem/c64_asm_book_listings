@@ -32,6 +32,7 @@ The listing presented have been fixed, where I've found bugs. I've published the
 - 10.110: Interrupt-driven Tune Player (commented and with tune, but unverified)
 - 10.115: Window Projection (commented, but unverified)
 - 10.116: Projecting a Landscape (fixed, extended, and simplified)
+- 10.120: Array Routines 1: Plot Characters
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
 
