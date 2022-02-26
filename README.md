@@ -31,6 +31,7 @@ The listing presented have been fixed, where I've found bugs. I've published the
   - 10.103: BASIC program including the above
 - 10.109: Interrupt-driven Tune Player (commented and with tune, but unverified)
 - 10.114: Window Projection (commented, but unverified)
+- 10.116: Projecting a Landscape (fixed, extended, and simplified)
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
 
