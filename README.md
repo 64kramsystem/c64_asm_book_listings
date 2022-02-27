@@ -23,7 +23,7 @@ Routines:
 - 09.074: Memory copy (with simple optimizations)
 - 09.076: Delay (3 versions)
 - 09.080: Fundamental Bomb Update (fixed)
-- 09.081: Hail Of Barbs (with BASIC fix, but untested ASM)
+- 09.081: Hail Of Barbs (fixed, and dumped the ASM routine)
 - 09.085: 256 Byte Continuous Scroll (fixed)
 - 09.086: Scroll Into Lower Memory
 - 09.087: Line Blank
