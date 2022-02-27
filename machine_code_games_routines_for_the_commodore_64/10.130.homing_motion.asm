@@ -81,6 +81,45 @@ next_coordinate:
 
         jmp SERVICE_ROUTINE_ADDR
 
+// Optimized version.
+//
+// The optimization is simple - just use the A reg for the arithmetic. Core logic, original:
+//
+// - sec+sbc: 2+4 cycles
+// - inc<>dec: 21<>7 cycles
+//
+// optimized:
+//
+// - cmp: 4 cycles
+// - inc<>dec: 13<>9 cycles
+//
+homing_motion_optimized:
+        ldy #1                          // Y: target sprite offset
+        ldx #(2 * LAST_SPRITE_IDX)      // X: homing sprites offsets (2: one for each c.)
+
+compare_sprites_coordinate_opt:
+        lda HOMING_SPRITES_BASE_ADDR, x
+
+        cmp TARGET_SPRITE_BASE_ADDR, y
+        beq next_coordinate_opt
+        bcc increment_coordinate_opt
+        clc
+        sbc #1
+increment_coordinate_opt:
+        sec
+        adc #0
+        sta HOMING_SPRITES_BASE_ADDR, x
+
+next_coordinate_opt:
+        tya
+        eor #1
+        tay
+
+        dex
+        bne compare_sprites_coordinate_opt
+
+        jmp SERVICE_ROUTINE_ADDR
+
 // Helper routines /////////////////////////////////////////////////////////////
 
 set_sprites_shape_data:
@@ -148,9 +187,9 @@ enable_sprites:
         rts
 
 hook_interrupt:
-        lda #<homing_motion
+        lda #<homing_motion_optimized
         sta INTERRUPT_VECTOR_ADDR
-        lda #>homing_motion
+        lda #>homing_motion_optimized
         sta INTERRUPT_VECTOR_ADDR + 1
 
         rts
