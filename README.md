@@ -41,7 +41,7 @@ Routines:
 - 10.121: Array Routines 3: Search Entry (simplified and optimized)
 - 10.122: Array Routines 4: Delete Entry
 - 10.124: Random Numbers
-- 10.130: Homing Motion (optimized; added randomized sprites)
+- 10.130: Homing Motion (optimized and simplified; added randomized sprites)
 
 This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
 

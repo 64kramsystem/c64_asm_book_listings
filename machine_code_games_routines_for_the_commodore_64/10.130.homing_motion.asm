@@ -1,9 +1,11 @@
 BasicUpstart2(main)
 
-.const TARGET_SPRITE_BASE_ADDR  = $d000 // 53248
+.const TARGET_SPRITE_BASE_ADDR  = $d000     // 53248
 // Note that, due to DEX/BNE loop optimization, it's 1 byte lass than the referenced address.
-.const HOMING_SPRITES_BASE_ADDR = $d001 // 53249
-.const LAST_SPRITE_IDX          = 7     // 0 is the target; 1-IDX are the homing ones
+.const HOMING_SPRITES_BASE_ADDR = $d001     // 53249
+// The optimized version used a direct correspondence.
+.const HOMING_SPRITES_BASE_ADDR_OPT = $d002 // 53250
+.const LAST_SPRITE_IDX          = 7         // 0 is the target; 1-IDX are the homing ones
 
 .const SPRITE_COORDINATES_ADDR    = $d000 // 53248
 .const SPRITES_ENABLE_STATE_ADDR  = $d015 // 53269
@@ -81,7 +83,7 @@ next_coordinate:
 
         jmp SERVICE_ROUTINE_ADDR
 
-// Optimized version.
+// Optimized and slightly simplified version.
 //
 // The optimization is simple - just use the A reg for the arithmetic. Core logic, original:
 //
@@ -93,30 +95,36 @@ next_coordinate:
 // - cmp: 4 cycles
 // - inc<>dec: 13<>9 cycles
 //
-homing_motion_optimized:
-        ldy #1                          // Y: target sprite offset
-        ldx #(2 * LAST_SPRITE_IDX)      // X: homing sprites offsets (2: one for each c.)
+// The simplification is that, instead of using XOR to alternate Y between 0 and 1, we set
+// Y to the last bit of X; this is a more intuitive approach, since the connection between
+// X (homing sprite offset) and Y (target sprite offset) is direct.
+// This requires a `bpl` test (positive result) instead of `bne`, which is possible because
+// X is never >= 128.
+// As side effect, this logic also spares the first `ldy #1`.
+//
+homing_motion_improved:
+        ldx #(2 * LAST_SPRITE_IDX - 1)      // X: homing sprites offsets (range: [0, 13])
 
-compare_sprites_coordinate_opt:
-        lda HOMING_SPRITES_BASE_ADDR, x
-
-        cmp TARGET_SPRITE_BASE_ADDR, y
-        beq next_coordinate_opt
-        bcc increment_coordinate_opt
-        clc
-        sbc #1
-increment_coordinate_opt:
-        sec
-        adc #0
-        sta HOMING_SPRITES_BASE_ADDR, x
-
-next_coordinate_opt:
-        tya
-        eor #1
+compare_sprites_coordinate_imp:
+        txa                                 // Y: target sprite offset; matches the LS bit of X
+        and #1
         tay
 
+        lda HOMING_SPRITES_BASE_ADDR + 1, x // See constant definition regarding the `+ 1`
+
+        cmp TARGET_SPRITE_BASE_ADDR, y
+        beq next_coordinate_imp
+        bcc increment_coordinate_imp
+        clc
+        sbc #1
+increment_coordinate_imp:
+        sec
+        adc #0
+        sta HOMING_SPRITES_BASE_ADDR + 1, x
+
+next_coordinate_imp:
         dex
-        bne compare_sprites_coordinate_opt
+        bpl compare_sprites_coordinate_imp
 
         jmp SERVICE_ROUTINE_ADDR
 
@@ -187,9 +195,9 @@ enable_sprites:
         rts
 
 hook_interrupt:
-        lda #<homing_motion_optimized
+        lda #<homing_motion_improved
         sta INTERRUPT_VECTOR_ADDR
-        lda #>homing_motion_optimized
+        lda #>homing_motion_improved
         sta INTERRUPT_VECTOR_ADDR + 1
 
         rts
