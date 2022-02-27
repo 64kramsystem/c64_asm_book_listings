@@ -2,17 +2,19 @@
 
 Listings from (old) C64 ASM books I've studied on.
 
-Many (if not all) of the books from the past don't have a digital edition, so, while studying them, I'm publishing their listings, in a fixed, extended, converted (to Kick Assembler) and commented version.
+Many (if not all) of the books from the past don't have a digital edition, so, while studying them, I'm publishing their listings, along with fixes, improvements, extensions, comments, and in a format that can be compiled by Kick Assembler.
 
-The listings are in the format `$book_name/$chapter.$page.$description.asm`.
+The details about the fixes have been, separately, published on my [professional blog](https://saveriomiroddi.github.io/tag/retrocomputing).
+
+The filenames are in the format `$book_name/$chapter.$page.$title.$ext`.
+
+**Update**: Since fixing and improving the routines has been *very* time-consuming, the current book may be the only one included in the project.
 
 ## Current books/listings
 
-The listings presented have been fixed, where I've found bugs. I've published the errata, with explanations, on my [professional blog](https://saveriomiroddi.github.io/tag/retrocomputing/).
+### Machine Code Games Routines for the Commodore 64
 
-### Machine Code Games Routines for the Commodore 64 (WIP)
-
-This book includes a mix of ASM and BASIC routines; the BASIC ones haven't been ported, with the exception of the ones including ASM.
+This book includes the ASM routines; only the BASIC listing invoking ASM have been added.
 
 Routines:
 
@@ -43,22 +45,6 @@ Routines:
 - 10.124: Random Numbers
 - 10.130: Homing Motion (optimized and simplified; added randomized sprites)
 
-This book uses intentionally relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
+The book intentionally uses relative jumps (typically `CLC`+`BCC`) instead of straight `JMP`s, for relocatability purposes; the modified code listings respect this design.
 
-The book aim for simplicity rather than optimization, so optimizations have been applied only where they don't affect simplicity (or even improve it).
-
-Generally, the loop structure:
-
-- `LDr #0`
-- ...
-- `INr`
-- `CPr #SIZE`
-- `BNE loop`
-
-can be optimized to:
-
-- `LDr #(SIZE - 1)`
-- `DEr`
-- `BPL loop`
-
-Arguably, this is equally simple, although SIZE must not be greater than 128, otherwise the loop will exit after the first cycle.
+Since the book aims for simplicity rather than optimization, optimizations have been applied only where they don't affect readability (or when they simplify the logic). An optimization that hasn't always been applied is to turn `INr/CPr/BNE` / `DEr/BNE` loops into `DEr/BPL` (which saves a CMP in the first case, and removes the -1 offset in the second).
